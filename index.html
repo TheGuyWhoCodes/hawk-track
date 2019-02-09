@@ -2,14 +2,14 @@
 
 <html>
     <head>
+        <link rel = "stylesheet" href="css/style.css" />
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>        
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-        <link rel = "stylesheet" src = "css/style.css">
     </head>
     <body>
-        <div class = "global-container">
-                <h2>Is the Hawk Poppin? </h2><br>
+        <div class = "global container">
+                <h2 class = "top">Is the Atrium Poppin? </h2><br>
                 <h1 class = "answer"></h1>
                 <h3 class = "amount"></h3>
         </div>
@@ -30,13 +30,24 @@
   firebase.initializeApp(config);
 </script>
 <script>
+    var cap = 50;
     var database = firebase.database();
     var data = firebase.database().ref("/data/");
     data.on('value', function(snapshot){
         console.log(JSON.parse(snapshot.val().json))
         var amount = (JSON.parse(snapshot.val().json)).length;
-        $(".amount").text("There are " + amount + " people at the Hawk!")
-        if(amount >= 3){
+        if(amount == 1){
+            $(".amount").text("There is " + amount + " person at the Atrium!")
+        } else if(amount == 0) {
+            $(".amount").text("No one is there :(")
+        } else {
+            if(amount >= cap){
+                $(".amount").text("There are " + amount + " people at the Atrium!")
+            } else {
+                $(".amount").text("There is only " + amount + " people at the Atrium!")
+            }
+        }
+        if(amount >= cap){
             $(".answer").text("YES!");
         } else {
             $(".answer").text("NO!");  
