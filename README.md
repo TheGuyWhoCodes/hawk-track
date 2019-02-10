@@ -1,5 +1,5 @@
 # hawk-track
-🏃 Tracking using Firebase and howmanypeoplearearound
+Tracking using Firebase and howmanypeoplearearound
 
 ## Installation:
 
