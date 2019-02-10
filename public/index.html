@@ -30,12 +30,12 @@
   firebase.initializeApp(config);
 </script>
 <script>
-    var cap = 50;
+    var cap = 20;
     var database = firebase.database();
     var data = firebase.database().ref("/data/");
     data.on('value', function(snapshot){
-        console.log(JSON.parse(snapshot.val().json))
-        var amount = (JSON.parse(snapshot.val().json)).length;
+        console.log(JSON.parse(snapshot.val().json));
+        var amount = (JSON.parse(snapshot.val().json).cellphones).length;
         if(amount == 1){
             $(".amount").text("There is " + amount + " person at the Atrium!")
         } else if(amount == 0) {
@@ -44,7 +44,7 @@
             if(amount >= cap){
                 $(".amount").text("There are " + amount + " people at the Atrium!")
             } else {
-                $(".amount").text("There is only " + amount + " people at the Atrium!")
+                $(".amount").text("There are only " + amount + " people at the Atrium!")
             }
         }
         if(amount >= cap){
